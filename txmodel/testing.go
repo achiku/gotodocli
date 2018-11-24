@@ -12,6 +12,7 @@ import (
 	"github.com/jackc/pgx"
 	_ "github.com/jackc/pgx/stdlib" // pgx
 	"github.com/pkg/errors"
+	uuid "github.com/satori/go.uuid"
 )
 
 func init() {
@@ -101,10 +102,11 @@ func TestCreateTables(cfg DBConfig, path string) error {
 
 // TestSetupTx create tx and cleanup func for test
 func TestSetupTx(t *testing.T) (Txer, func()) {
-	db, err := sql.Open("txdb", "dummy")
+	db, err := sql.Open("txdb", uuid.NewV4().String())
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	tx, err := db.Begin()
 	if err != nil {
 		t.Fatal(err)
@@ -119,7 +121,7 @@ func TestSetupTx(t *testing.T) (Txer, func()) {
 
 // TestSetupDB create db and cleanup func for test
 func TestSetupDB(t *testing.T) (DBer, func()) {
-	db, err := sql.Open("txdb", "dummy")
+	db, err := sql.Open("txdb", uuid.NewV4().String())
 	if err != nil {
 		t.Fatal(err)
 	}

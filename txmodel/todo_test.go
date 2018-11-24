@@ -20,6 +20,7 @@ func testShowCount(t *testing.T, tx Queryer) {
 }
 
 func TestGetToDoByID(t *testing.T) {
+	t.Parallel()
 	tx, cleanup := TestSetupTx(t)
 	defer cleanup()
 
@@ -53,6 +54,7 @@ func TestGetToDoByID(t *testing.T) {
 }
 
 func TestGetActionByToDoID(t *testing.T) {
+	t.Parallel()
 	tx, cleanup := TestSetupTx(t)
 	defer cleanup()
 
