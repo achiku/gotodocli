@@ -42,3 +42,12 @@ type DBer interface {
 	Close() error
 	Ping() error
 }
+
+// NewDB creates new db
+func NewDB(constr string) (DBer, error) {
+	db, err := sql.Open("pgx", constr)
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
+}
